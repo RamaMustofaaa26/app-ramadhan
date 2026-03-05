@@ -1,5 +1,5 @@
 // --- Variabel Global Lokasi ---
-let currentCity = "Cilegon"; 
+let currentCity = "Pandeglang"; 
 let currentCountry = "Indonesia";
 let currentLat = -6.0174; 
 let currentLng = 106.0232; 
