@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Web App Ramadhan Mobile</title>
+    <title>Web App Ramadhan Mobile</title>
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="mobile-app-container">
+        
+        <div id="location-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content">
+                <h3>Atur Lokasi Anda</h3>
+                <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px;">Pilih ketik manual atau gunakan GPS.</p>
+                
+                <button class="gps-btn" onclick="getLocationGPS()">🎯 Deteksi Lokasi GPS Otomatis</button>
+                
+                <div style="margin: 15px 0; color: #666; font-size: 0.8rem;">— ATAU KETIK KOTA —</div>
+
+                <input type="text" id="city-input" placeholder="Masukkan nama kota...">
+                <div class="modal-actions">
+                    <button onclick="closeLocationModal()">Batal</button>
+                    <button class="save-btn" onclick="saveLocation()">Simpan Kota</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="screen-home" class="screen active">
+            <header class="app-header">
+                <div class="location" onclick="openLocationModal()">
+                    <span>📍 <span id="user-city">Cilegon</span></span>
+                    <span style="font-size: 0.7rem; margin-left: 5px;">▼</span>
+                </div>
+                <div class="coins" onclick="showAlert('Dompet Koin (Segera Hadir)')">
+                    🪙 Info
+                </div>
+            </header>
+
+            <section class="hero-card">
+                <div class="warning-bar" id="date-display">Memuat tanggal...</div>
+                <div class="hero-content">
+                    <div class="time-info">
+                        <p class="next-prayer">Jadwal Maghrib / Buka</p>
+                        <h1 class="main-time" id="maghrib-time">--:--</h1>
+                        <div class="fasting-info">
+                            <p>Imsak <strong id="imsak-time">--:--</strong></p>
+                            <p>Subuh <strong id="subuh-time">--:--</strong></p>
+                        </div>
+                    </div>
+                    <div class="hero-image">🕌</div>
+                </div>
+                <div class="hero-footer" onclick="switchScreen('screen-salat', document.getElementById('nav-salat'))">
+                    Lihat semua waktu salat ➔
+                </div>
+            </section>
+
+            <nav class="quick-menus">
+                <div class="menu-item" onclick="switchScreen('screen-quran', null)">
+                    <div class="icon-circle">📖</div>
+                    <span>Quran</span>
+                </div>
+                <div class="menu-item" onclick="switchScreen('screen-asmaul', null); loadAsmaulHusna();">
+                    <div class="icon-circle">✨</div>
+                    <span>99 Nama</span>
+                </div>
+                <div class="menu-item" onclick="openGoogleMaps()">
+                    <div class="icon-circle">📍</div>
+                    <span>Maps</span>
+                </div>
+                <div class="menu-item" onclick="switchScreen('screen-qiblat', null); initQibla();">
+                    <div class="icon-circle">🧭</div>
+                    <span>Kiblat</span>
+                </div>
+                <div class="menu-item" onclick="switchScreen('screen-tasbih', null)">
+                    <div class="icon-circle">📿</div>
+                    <span>Tasbih</span>
+                </div>
+            </nav>
+
+            <div class="banner blue-banner" style="margin-bottom: 30px;">
+                <div class="banner-text">
+                    <small>Ramadhan</small>
+                    <h3>Bersama Rama Mustofa</h3>
+                </div>
+                <div class="banner-icon">🕌</div>
+            </div>
+        </div>
+
+        <div id="screen-salat" class="screen">
+            <div class="quran-header">
+                <button class="back-home-btn" onclick="switchScreen('screen-home', document.getElementById('nav-home'))">← Beranda</button>
+                <h2 class="screen-title" style="margin-bottom:0;">Waktu Salat</h2>
+                <div style="width: 80px;"></div> 
+            </div>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;">Lokasi: <strong id="jadwal-city-text">Cilegon</strong></p>
+            <div id="jadwal-container" class="jadwal-grid">
+                <div class="loader">Mengambil data jadwal...</div>
+            </div>
+        </div>
+
+        <div id="screen-quran" class="screen">
+            <div id="quran-list">
+                <div class="quran-header">
+                    <button class="back-home-btn" onclick="switchScreen('screen-home', document.getElementById('nav-home'))">← Beranda</button>
+                    <h2 class="screen-title" style="margin-bottom:0;">Al-Qur'an</h2>
+                    <div style="width: 80px;"></div> 
+                </div>
+                <div class="search-container">
+                    <input type="text" id="searchSurah" placeholder="Cari Surat..." onkeyup="filterSurah()">
+                </div>
+                <div id="quran-container" class="surah-list">
+                    <div class="loader">Memuat 114 Surat...</div>
+                </div>
+            </div>
+
+            <div id="quran-detail" style="display: none;">
+                <div class="detail-header">
+                    <button class="back-btn" onclick="backToSurahList()">← Daftar Surat</button>
+                    <h2 id="surah-title" style="margin-top:10px;">Nama Surat</h2>
+                </div>
+                <div id="ayah-container"></div>
+            </div>
+        </div>
+
+        <div id="screen-asmaul" class="screen">
+            <div class="quran-header">
+                <button class="back-home-btn" onclick="switchScreen('screen-home', document.getElementById('nav-home'))">← Beranda</button>
+                <h2 class="screen-title" style="margin-bottom:0;">Asmaul Husna</h2>
+                <div style="width: 80px;"></div>
+            </div>
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">99 Nama Allah SWT</p>
+            <div id="asmaul-container" class="asmaul-grid"></div>
+        </div>
+
+        <div id="screen-qiblat" class="screen">
+            <div class="quran-header">
+                <button class="back-home-btn" onclick="switchScreen('screen-home', document.getElementById('nav-home'))">← Beranda</button>
+                <h2 class="screen-title" style="margin-bottom:0;">Arah Kiblat</h2>
+                <div style="width: 80px;"></div>
+            </div>
+            <div class="qiblat-container">
+                <p style="text-align:center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
+                    Lokasi: <strong id="qiblat-city-text">Cilegon</strong>
+                </p>
+                <div class="compass-wrapper">
+                    <div class="compass-dial" id="compass-dial">
+                        <div class="qibla-arrow" id="qibla-arrow">
+                            <span style="color:var(--gold); font-size: 2rem; display:block; margin-bottom:-10px;">↑</span>
+                            🕋
+                        </div>
+                    </div>
+                </div>
+                <div class="qiblat-info">
+                    <h3>Derajat Kiblat: <span id="qibla-degree">--</span>°</h3>
+                    <p id="compass-status" style="font-size: 0.8rem; color: #ffca28; margin-top: 10px;">Menghitung arah...</p>
+                    <button class="watch-ad-btn" onclick="startCompass()" id="btn-start-compass" style="display:none; margin-top:15px; width: auto; padding: 10px 20px;">Berikan Izin Kompas</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="screen-tasbih" class="screen">
+            <div class="quran-header">
+                <button class="back-home-btn" onclick="switchScreen('screen-home', document.getElementById('nav-home'))">← Beranda</button>
+                <h2 class="screen-title" style="margin-bottom:0;">Tasbih Digital</h2>
+                <div style="width: 80px;"></div>
+            </div>
+            <div class="tasbih-container">
+                <div class="tasbih-display" id="tasbih-count">0</div>
+                <button class="tasbih-tap-btn" onclick="addTasbih()">TAP</button>
+                <button class="tasbih-reset-btn" onclick="resetTasbih()">🔄 Mulai Ulang (Reset)</button>
+            </div>
+        </div>
+
+        <div id="screen-kalender" class="screen">
+            <div class="quran-header">
+                <button class="back-home-btn" onclick="switchScreen('screen-home', document.getElementById('nav-home'))">← Beranda</button>
+                <h2 class="screen-title" style="margin-bottom:0;">Kalender</h2>
+                <div style="width: 80px;"></div>
+            </div>
+            <div class="kalender-wrapper">
+                <div class="kalender-controls">
+                    <button class="cal-btn" onclick="changeMonth(-1)">◀</button>
+                    <h3 id="kalender-title" style="font-size: 1.1rem; color: var(--gold); text-align: center;">Memuat...</h3>
+                    <button class="cal-btn" onclick="changeMonth(1)">▶</button>
+                </div>
+                <div class="cal-header-row">
+                    <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
+                </div>
+                <div id="kalender-grid" class="cal-grid">
+                    <div class="loader" style="grid-column: 1/-1;">Mengambil data kalender...</div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <div class="nav-item active" id="nav-home" onclick="switchScreen('screen-home', this)">
+                <div class="nav-icon">🕋</div>
+                <span>Utama</span>
+            </div>
+            <div class="nav-item" id="nav-salat" onclick="switchScreen('screen-salat', this)">
+                <div class="nav-icon">⏱️</div>
+                <span>Salat</span>
+            </div>
+            <div class="nav-item" id="nav-kalender" onclick="switchScreen('screen-kalender', this); renderKalender();">
+                <div class="nav-icon">📅</div>
+                <span>Kalender</span>
+            </div>
+            <div class="nav-item" onclick="showAlert('Kotak Pesan kosong.')">
+                <div class="nav-icon">💬<span class="badge">2</span></div>
+                <span>Pesan</span>
+            </div>
+            <div class="nav-item" onclick="showAlert('Profil Pengguna')">
+                <div class="nav-icon">👤</div>
+                <span>Saya</span>
+            </div>
+        </nav>
+
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('Service Worker terdaftar!'))
+                .catch(err => console.log('Service Worker gagal:', err));
+            });
+        }
+    </script>
+</body>
+</html>

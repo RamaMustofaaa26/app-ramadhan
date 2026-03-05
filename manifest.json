@@ -1,0 +1,16 @@
+{
+  "name": "App Ramadhan",
+  "short_name": "Ramadhan",
+  "description": "Aplikasi Jadwal Sholat, Al-Qur'an, dan Kiblat",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#ffca28",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3213/3213335.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
