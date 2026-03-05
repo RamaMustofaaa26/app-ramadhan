@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Web App Ramadhan Mobile</title>
-    <title>Web App Ramadhan Mobile</title>
-    <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,11 +15,8 @@
             <div class="modal-content">
                 <h3>Atur Lokasi Anda</h3>
                 <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px;">Pilih ketik manual atau gunakan GPS.</p>
-                
                 <button class="gps-btn" onclick="getLocationGPS()">🎯 Deteksi Lokasi GPS Otomatis</button>
-                
                 <div style="margin: 15px 0; color: #666; font-size: 0.8rem;">— ATAU KETIK KOTA —</div>
-
                 <input type="text" id="city-input" placeholder="Masukkan nama kota...">
                 <div class="modal-actions">
                     <button onclick="closeLocationModal()">Batal</button>
@@ -33,11 +28,11 @@
         <div id="screen-home" class="screen active">
             <header class="app-header">
                 <div class="location" onclick="openLocationModal()">
-                    <span>📍 <span id="user-city">Cilegon</span></span>
+                    <span>📍 <span id="user-city">Pandeglang</span></span>
                     <span style="font-size: 0.7rem; margin-left: 5px;">▼</span>
                 </div>
-                <div class="coins" onclick="showAlert('Dompet Koin (Segera Hadir)')">
-                    🪙 Info
+                <div class="coins" onclick="showAlert('Pengaturan Aplikasi')">
+                    ⚙️ Pengaturan
                 </div>
             </header>
 
@@ -85,7 +80,7 @@
             <div class="banner blue-banner" style="margin-bottom: 30px;">
                 <div class="banner-text">
                     <small>Ramadhan</small>
-                    <h3>Bersama Rama Mustofa</h3>
+                    <h3>Bersama AkuMuslim</h3>
                 </div>
                 <div class="banner-icon">🕌</div>
             </div>
@@ -97,7 +92,10 @@
                 <h2 class="screen-title" style="margin-bottom:0;">Waktu Salat</h2>
                 <div style="width: 80px;"></div> 
             </div>
-            <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;">Lokasi: <strong id="jadwal-city-text">Cilegon</strong></p>
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">
+                Lokasi: <strong id="jadwal-city-text">Cilegon</strong><br>
+                <small style="color:var(--gold);">*Klik kotak di bawah untuk atur pengingat</small>
+            </p>
             <div id="jadwal-container" class="jadwal-grid">
                 <div class="loader">Mengambil data jadwal...</div>
             </div>
@@ -166,12 +164,20 @@
         <div id="screen-tasbih" class="screen">
             <div class="quran-header">
                 <button class="back-home-btn" onclick="switchScreen('screen-home', document.getElementById('nav-home'))">← Beranda</button>
-                <h2 class="screen-title" style="margin-bottom:0;">Tasbih Digital</h2>
+                <h2 class="screen-title" style="margin-bottom:0;">Tasbih</h2>
                 <div style="width: 80px;"></div>
             </div>
             <div class="tasbih-container">
                 <div class="tasbih-display" id="tasbih-count">0</div>
-                <button class="tasbih-tap-btn" onclick="addTasbih()">TAP</button>
+                
+                <div class="tasbih-physical-area" onclick="pullBead()">
+                    <div class="tasbih-string"></div>
+                    <div class="tasbih-bead bead-top"></div>
+                    <div class="tasbih-bead bead-main" id="main-bead"></div>
+                    <div class="tasbih-bead bead-bottom"></div>
+                </div>
+                <p style="color:var(--text-muted); font-size: 0.8rem; margin-top:10px; text-align:center;">Klik / Tarik Biji ke Bawah</p>
+
                 <button class="tasbih-reset-btn" onclick="resetTasbih()">🔄 Mulai Ulang (Reset)</button>
             </div>
         </div>
@@ -182,10 +188,12 @@
                 <h2 class="screen-title" style="margin-bottom:0;">Kalender</h2>
                 <div style="width: 80px;"></div>
             </div>
+            <p style="text-align: center; color: var(--gold); font-size: 0.85rem; margin-bottom: 10px;"></p>
+            
             <div class="kalender-wrapper">
                 <div class="kalender-controls">
                     <button class="cal-btn" onclick="changeMonth(-1)">◀</button>
-                    <h3 id="kalender-title" style="font-size: 1.1rem; color: var(--gold); text-align: center;">Memuat...</h3>
+                    <h3 id="kalender-title" style="font-size: 1rem; color: var(--gold); text-align: center;">Memuat...</h3>
                     <button class="cal-btn" onclick="changeMonth(1)">▶</button>
                 </div>
                 <div class="cal-header-row">
@@ -222,16 +230,13 @@
 
     </div>
 
-    <script src="script.js"></script>
-
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                .then(reg => console.log('Service Worker terdaftar!'))
-                .catch(err => console.log('Service Worker gagal:', err));
+                navigator.serviceWorker.register('sw.js').catch(err => console.log(err));
             });
         }
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
