@@ -229,7 +229,122 @@ function handleOrientation(event) {
     document.getElementById('compass-dial').style.transform = `rotate(${-heading}deg)`;
 }
 
-const asmaulHusnaData = [{"ar":"الرَّحْمَنُ","la":"Ar Rahman","id":"Yang Maha Pengasih"},{"ar":"الرَّحِيمُ","la":"Ar Rahiim","id":"Yang Maha Penyayang"},{"ar":"الْمَلِكُ","la":"Al Malik","id":"Yang Maha Merajai"},{"ar":"الْقُدُّوسُ","la":"Al Quddus","id":"Yang Maha Suci"}]; // Silakan tempel kembali ke-99 asmaul husna Anda di sini.
+// --- LOGIKA ASMAUL HUSNA FULL 99 NAMA ---
+const asmaulHusnaData = [
+    {"ar":"الرَّحْمَنُ","la":"Ar Rahman","id":"Yang Maha Pengasih"},
+    {"ar":"الرَّحِيمُ","la":"Ar Rahiim","id":"Yang Maha Penyayang"},
+    {"ar":"الْمَلِكُ","la":"Al Malik","id":"Yang Maha Merajai"},
+    {"ar":"الْقُدُّوسُ","la":"Al Quddus","id":"Yang Maha Suci"},
+    {"ar":"السَّلاَمُ","la":"As Salaam","id":"Yang Maha Memberi Kesejahteraan"},
+    {"ar":"الْمُؤْمِنُ","la":"Al Mu'min","id":"Yang Maha Memberi Keamanan"},
+    {"ar":"الْمُهَيْمِنُ","la":"Al Muhaimin","id":"Yang Maha Mengatur"},
+    {"ar":"الْعَزِيزُ","la":"Al 'Aziiz","id":"Yang Maha Perkasa"},
+    {"ar":"الْجَبَّارُ","la":"Al Jabbar","id":"Yang Memiliki (Mutlak) Kegagahan"},
+    {"ar":"الْمُتَكَبِّرُ","la":"Al Mutakabbir","id":"Yang Maha Megah"},
+    {"ar":"الْخَالِقُ","la":"Al Khaliq","id":"Yang Maha Pencipta"},
+    {"ar":"الْبَارِئُ","la":"Al Baari'","id":"Yang Maha Melepaskan"},
+    {"ar":"الْمُصَوِّرُ","la":"Al Mushawwir","id":"Yang Maha Membentuk Rupa"},
+    {"ar":"الْغَفَّارُ","la":"Al Ghaffaar","id":"Yang Maha Pengampun"},
+    {"ar":"الْقَهَّارُ","la":"Al Qahhaar","id":"Yang Maha Menundukkan"},
+    {"ar":"الْوَهَّابُ","la":"Al Wahhaab","id":"Yang Maha Pemberi Karunia"},
+    {"ar":"الرَّزَّاقُ","la":"Ar Razzaaq","id":"Yang Maha Pemberi Rezeki"},
+    {"ar":"الْفَتَّاحُ","la":"Al Fattaah","id":"Yang Maha Pembuka Rahmat"},
+    {"ar":"الْعَلِيمُ","la":"Al 'Aliim","id":"Yang Maha Mengetahui"},
+    {"ar":"الْقَابِضُ","la":"Al Qaabidh","id":"Yang Maha Menyempitkan"},
+    {"ar":"الْبَاسِطُ","la":"Al Baasith","id":"Yang Maha Melapangkan"},
+    {"ar":"الْخَافِضُ","la":"Al Khaafidh","id":"Yang Maha Merendahkan"},
+    {"ar":"الرَّافِعُ","la":"Ar Raafi'","id":"Yang Maha Meninggikan"},
+    {"ar":"الْمُعِزُّ","la":"Al Mu'izz","id":"Yang Maha Memuliakan"},
+    {"ar":"المُذِلُّ","la":"Al Mudzil","id":"Yang Maha Menghinakan"},
+    {"ar":"السَّمِيعُ","la":"As Samii'","id":"Yang Maha Mendengar"},
+    {"ar":"الْبَصِيرُ","la":"Al Bashiir","id":"Yang Maha Melihat"},
+    {"ar":"الْحَكَمُ","la":"Al Hakam","id":"Yang Maha Menetapkan"},
+    {"ar":"الْعَدْلُ","la":"Al 'Adl","id":"Yang Maha Adil"},
+    {"ar":"اللَّطِيفُ","la":"Al Lathiif","id":"Yang Maha Lembut"},
+    {"ar":"الْخَبِيرُ","la":"Al Khabiir","id":"Yang Maha Mengenal"},
+    {"ar":"الْحَلِيمُ","la":"Al Haliim","id":"Yang Maha Penyantun"},
+    {"ar":"الْعَظِيمُ","la":"Al 'Azhiim","id":"Yang Maha Agung"},
+    {"ar":"الْغَفُورُ","la":"Al Ghafuur","id":"Yang Maha Memberi Pengampunan"},
+    {"ar":"الشَّكُورُ","la":"As Syakuur","id":"Yang Maha Pembalas Budi"},
+    {"ar":"الْعَلِيُّ","la":"Al 'Aliy","id":"Yang Maha Tinggi"},
+    {"ar":"الْكَبِيرُ","la":"Al Kabiir","id":"Yang Maha Besar"},
+    {"ar":"الْحَفِيظُ","la":"Al Hafizh","id":"Yang Maha Memelihara"},
+    {"ar":"الْمُقِيتُ","la":"Al Muqiit","id":"Yang Maha Pemberi Kecukupan"},
+    {"ar":"الْحَسِيبُ","la":"Al Hasiib","id":"Yang Maha Membuat Perhitungan"},
+    {"ar":"الْجَلِيلُ","la":"Al Jaliil","id":"Yang Maha Luhur"},
+    {"ar":"الْكَرِيمُ","la":"Al Kariim","id":"Yang Maha Pemurah"},
+    {"ar":"الرَّقِيبُ","la":"Ar Raqiib","id":"Yang Maha Mengawasi"},
+    {"ar":"الْمُجِيبُ","la":"Al Mujiib","id":"Yang Maha Mengabulkan"},
+    {"ar":"الْوَاسِعُ","la":"Al Waasi'","id":"Yang Maha Luas"},
+    {"ar":"الْحَكِيمُ","la":"Al Hakiim","id":"Yang Maha Bijaksana"},
+    {"ar":"الْوَدُودُ","la":"Al Waduud","id":"Yang Maha Mengasihi"},
+    {"ar":"الْمَجِيدُ","la":"Al Majiid","id":"Yang Maha Mulia"},
+    {"ar":"الْبَاعِثُ","la":"Al Baa'its","id":"Yang Maha Membangkitkan"},
+    {"ar":"الشَّهِيدُ","la":"As Syahiid","id":"Yang Maha Menyaksikan"},
+    {"ar":"الْحَقُّ","la":"Al Haqq","id":"Yang Maha Benar"},
+    {"ar":"الْوَكِيلُ","la":"Al Wakiil","id":"Yang Maha Memelihara"},
+    {"ar":"الْقَوِيُّ","la":"Al Qawiyyu","id":"Yang Maha Kuat"},
+    {"ar":"الْمَتِينُ","la":"Al Matiin","id":"Yang Maha Kokoh"},
+    {"ar":"الْوَلِيُّ","la":"Al Waliyy","id":"Yang Maha Melindungi"},
+    {"ar":"الْحَمِيدُ","la":"Al Hamiid","id":"Yang Maha Terpuji"},
+    {"ar":"الْمُحْصِي","la":"Al Muhshii","id":"Yang Maha Menghitung"},
+    {"ar":"الْمُبْدِئُ","la":"Al Mubdi'","id":"Yang Maha Memulai"},
+    {"ar":"الْمُعِيدُ","la":"Al Mu'iid","id":"Yang Maha Mengembalikan Kehidupan"},
+    {"ar":"الْمُحْيِي","la":"Al Muhyii","id":"Yang Maha Menghidupkan"},
+    {"ar":"اَلْمُمِيتُ","la":"Al Mumiitu","id":"Yang Maha Mematikan"},
+    {"ar":"الْحَيُّ","la":"Al Hayyu","id":"Yang Maha Hidup"},
+    {"ar":"الْقَيُّومُ","la":"Al Qayyuum","id":"Yang Maha Mandiri"},
+    {"ar":"الْوَاجِدُ","la":"Al Waajid","id":"Yang Maha Penemu"},
+    {"ar":"الْمَاجِدُ","la":"Al Maajid","id":"Yang Maha Mulia"},
+    {"ar":"الْوَاحِدُ","la":"Al Waahid","id":"Yang Maha Tunggal"},
+    {"ar":"اَلاَحَدُ","la":"Al Ahad","id":"Yang Maha Esa"},
+    {"ar":"الصَّمَدُ","la":"As Shamad","id":"Yang Maha Dibutuhkan"},
+    {"ar":"الْقَادِرُ","la":"Al Qaadir","id":"Yang Maha Menentukan"},
+    {"ar":"الْمُقْتَدِرُ","la":"Al Muqtadir","id":"Yang Maha Berkuasa"},
+    {"ar":"الْمُقَدِّمُ","la":"Al Muqaddim","id":"Yang Maha Mendahulukan"},
+    {"ar":"الْمُؤَخِّرُ","la":"Al Mu'akkhir","id":"Yang Maha Mengakhirkan"},
+    {"ar":"الأوَّلُ","la":"Al Awwal","id":"Yang Maha Awal"},
+    {"ar":"الآخِرُ","la":"Al Aakhir","id":"Yang Maha Akhir"},
+    {"ar":"الظَّاهِرُ","la":"Az Zhaahir","id":"Yang Maha Nyata"},
+    {"ar":"الْبَاطِنُ","la":"Al Baathin","id":"Yang Maha Ghaib"},
+    {"ar":"الْوَالِي","la":"Al Waali","id":"Yang Maha Memerintah"},
+    {"ar":"الْمُتَعَالِي","la":"Al Muta'aalii","id":"Yang Maha Tinggi"},
+    {"ar":"الْبَرُّ","la":"Al Barru","id":"Yang Maha Penderma"},
+    {"ar":"التَّوَّابُ","la":"At Tawwaab","id":"Yang Maha Penerima Taubat"},
+    {"ar":"الْمُنْتَقِمُ","la":"Al Muntaqim","id":"Yang Maha Penyiksa"},
+    {"ar":"العَفُوُّ","la":"Al Afuww","id":"Yang Maha Pemaaf"},
+    {"ar":"الرَّؤُوفُ","la":"Ar Ra'uuf","id":"Yang Maha Pengasih"},
+    {"ar":"مَالِكُ الْمُلْكِ","la":"Malikul Mulk","id":"Penguasa Kerajaan Semesta"},
+    {"ar":"ذُوالْجَلاَلِ وَالإكْرَامِ","la":"Dzul Jalaali WalIkraam","id":"Pemilik Kebesaran dan Kemuliaan"},
+    {"ar":"الْمُقْسِطُ","la":"Al Muqsith","id":"Yang Maha Adil"},
+    {"ar":"الْجَامِعُ","la":"Al Jaami'","id":"Yang Maha Mengumpulkan"},
+    {"ar":"الْغَنِيُّ","la":"Al Ghaniyy","id":"Yang Maha Berkecukupan"},
+    {"ar":"الْمُغْنِي","la":"Al Mughnii","id":"Yang Maha Memberi Kekayaan"},
+    {"ar":"الْمَانِعُ","la":"Al Maani'","id":"Yang Maha Mencegah"},
+    {"ar":"الضَّارُ","la":"Ad Dhaar","id":"Yang Maha Memberi Derita"},
+    {"ar":"النَّافِعُ","la":"An Naafi'","id":"Yang Maha Memberi Manfaat"},
+    {"ar":"النُّورُ","la":"An Nuur","id":"Yang Maha Bercahaya"},
+    {"ar":"الْهَادِي","la":"Al Haadii","id":"Yang Maha Pemberi Petunjuk"},
+    {"ar":"الْبَدِيعُ","la":"Al Badii'","id":"Yang Maha Pencipta Tiada Bandingannya"},
+    {"ar":"اَلْبَاقِي","la":"Al Baaqii","id":"Yang Maha Kekal"},
+    {"ar":"الْوَارِثُ","la":"Al Waarits","id":"Yang Maha Pewaris"},
+    {"ar":"الرَّشِيدُ","la":"Ar Rashiid","id":"Yang Maha Pandai"},
+    {"ar":"الصَّبُورُ","la":"As Shabuur","id":"Yang Maha Sabar"}
+];
+
+function loadAsmaulHusna() {
+    const container = document.getElementById('asmaul-container');
+    if (container.innerHTML.trim() !== "") return; 
+    let html = '';
+    asmaulHusnaData.forEach(item => { 
+        html += `<div class="asmaul-card">
+                    <div class="asmaul-arab">${item.ar}</div>
+                    <div class="asmaul-latin">${item.la}</div>
+                    <div class="asmaul-arti">${item.id}</div>
+                 </div>`; 
+    });
+    container.innerHTML = html;
+}
 function loadAsmaulHusna() {
     const container = document.getElementById('asmaul-container');
     if (container.innerHTML.trim() !== "") return; 
